@@ -40,7 +40,16 @@
                     <c:forEach items="${list}" var="value">
                         <tr>
                             <td>
-                                <c:out value="${value}"/>
+                                <c:out value="${value.id}"/>
+                            </td>
+                            <td>
+                                <c:out value="${value.name}"/>
+                            </td>
+                            <td>
+                                <c:out value="${value.text}"/>
+                            </td>
+                            <td>
+                                <c:out value="${value.address}"/>
                             </td>
                         </tr>
                     </c:forEach>
