@@ -10,8 +10,15 @@ public class AccidentMem {
 
     private Map<Integer, Accident> accidentMap = new HashMap<>();
 
+    public AccidentMem() {
+        save(new Accident(1, "accident", "some text", "address"));
+        save(new Accident(2, "accident2", "some text2", "address2"));
+        save(new Accident(3, "accident3", "some text3", "address3"));
+    }
+
     public boolean save(Accident accident) {
-       return accidentMap.putIfAbsent(accident.getId(), accident) == null;
+
+        return accidentMap.putIfAbsent(accident.getId(), accident) == null;
     }
 
     public boolean update(int id) {
