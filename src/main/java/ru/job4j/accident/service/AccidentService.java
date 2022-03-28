@@ -17,8 +17,8 @@ public class AccidentService {
         return accidentMem.save(accident);
     }
 
-    public boolean update(int id) {
-        return accidentMem.update(id);
+    public boolean update(int id, Accident accident) {
+        return accidentMem.update(id, accident);
     }
 
     public Collection<Accident> findAll() {

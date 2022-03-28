@@ -21,8 +21,7 @@ public class AccidentMem {
         return accidentMap.putIfAbsent(accident.getId(), accident) == null;
     }
 
-    public boolean update(int id) {
-        Accident accident =  findById(id);
+    public boolean update(int id, Accident accident) {
         return accidentMap.replace(id, accident) != null;
     }
 

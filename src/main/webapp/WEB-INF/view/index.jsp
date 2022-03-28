@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
     <!-- Required meta tags -->
@@ -26,6 +27,7 @@
 <div class="container pt-3">
     <div class="row">
         <div class="card" style="width: 100%">
+
             <div class="card-header">
                 Строки
             </div>
@@ -38,6 +40,9 @@
                     </thead>
                     <tbody>
                     <c:forEach items="${list}" var="value">
+                        <c:url var = "updateButton" value="/updateInfo">
+                            <c:param name = "empId" value = "${value.id}"/>
+                        </c:url>
                         <tr>
                             <td>
                                 <c:out value="${value.id}"/>
@@ -50,13 +55,16 @@
                             </td>
                             <td>
                                 <c:out value="${value.address}"/>
+
                             </td>
+                            <td><input type="button" value="update" onclick="window.location.href='${updateButton}'"></td>
                         </tr>
                     </c:forEach>
                     </tbody>
                 </table>
             </div>
         </div>
+        <a href="<c:url value='/create'/>">Добавить инцидент</a>
     </div>
 </div>
 
