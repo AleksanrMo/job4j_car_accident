@@ -48,7 +48,6 @@ public class AccidentControl {
     }
 
 
-
     public List<AccidentType> listOfTypes() {
         List<AccidentType> types = new ArrayList<>();
         types.add(AccidentType.of(1, "Две машины"));
