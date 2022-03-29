@@ -8,6 +8,7 @@ public class Accident {
     private String text;
     private String address;
     private AccidentType accidentType;
+    private Set<Rule> rules = new HashSet<>();
 
     public Accident() {
     }
@@ -26,6 +27,14 @@ public class Accident {
 
     public void setAccidentType(AccidentType accidentType) {
         this.accidentType = accidentType;
+    }
+
+    public Set<Rule> getRules() {
+        return rules;
+    }
+
+    public void setRules(Set<Rule> rules) {
+        this.rules = rules;
     }
 
     public int getId() {
@@ -75,5 +84,17 @@ public class Accident {
     @Override
     public int hashCode() {
         return Objects.hash(id, name, text, address);
+    }
+
+    @Override
+    public String toString() {
+        return "Accident{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", text='" + text + '\'' +
+                ", address='" + address + '\'' +
+                ", accidentType=" + accidentType +
+                ", rules=" + rules +
+                '}';
     }
 }
