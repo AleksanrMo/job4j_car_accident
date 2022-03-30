@@ -32,12 +32,12 @@ public class AccidentControl {
     }
 
     @PostMapping ("/save")
-    public String save(@ModelAttribute Accident accident, @RequestParam("rIds") int[] id,
-                       @RequestParam("type.id") int id2) {
+    public String save(@ModelAttribute Accident accident, @RequestParam("rIds") int[] ruleId,
+                       @RequestParam("type.id") int typeId) {
         Set<Rule> rules = new HashSet<>();
-        Arrays.stream(id).forEach(e -> rules.add(service.getRule(e)));
+        Arrays.stream(ruleId).forEach(e -> rules.add(service.getRule(e)));
         accident.setRules(rules);
-        accident.setAccidentType(service.getType(id2));
+        accident.setAccidentType(service.getType(typeId));
         service.save(accident);
         return "redirect:/";
     }
