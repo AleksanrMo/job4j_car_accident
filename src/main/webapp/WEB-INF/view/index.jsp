@@ -45,12 +45,6 @@
                         </c:url>
                         <tr>
                             <td>
-                                <c:out value="${value.accidentType}"/>
-                            </td>
-                            <td>
-                                <c:out value="${value.rules}"/>
-                            </td>
-                            <td>
                                 <c:out value="${value.id}"/>
                             </td>
                             <td>

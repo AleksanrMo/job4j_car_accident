@@ -17,10 +17,6 @@
 <form action="<c:url value='/save'/>" method='POST'>
     <table>
         <tr>
-            <td>Id:</td>
-            <td><input type='text' name='id'></td>
-        </tr>
-        <tr>
             <td>Имя:</td>
             <td><input type='text' name='name'></td>
         </tr>

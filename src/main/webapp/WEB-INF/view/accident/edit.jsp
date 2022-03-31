@@ -17,10 +17,6 @@
 <form action="<c:url value='/update'/>" method='POST'>
     <table>
         <tr>
-            <td>Id:</td>
-            <td><input type='text' name='id' value="${accident.id}"></td>
-        </tr>
-        <tr>
             <td>Имя:</td>
             <td><input type='text' name='name' value="${accident.name}"></td>
         </tr>
@@ -42,6 +38,17 @@
                 </select>
         </tr>
         <tr>
+            <td>Статьи:</td>
+            <td>
+                <select name="rIds" multiple>
+                    <c:forEach var="rule" items="${rules}" >
+                        <option value="${rule.id}">${rule.name}</option>
+                    </c:forEach>
+                </select>
+        </tr>
+        <tr>
+        <tr>
+
             <td colspan='2'><input name="submit" type="submit" value="Сохранить" /></td>
         </tr>
     </table>
