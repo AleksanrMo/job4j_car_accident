@@ -12,10 +12,10 @@ import ru.job4j.accident.model.Rule;
 
 import java.util.List;
 
-@Repository
+
 public class AccidentHibernate {
 
-   @Autowired
+
     SessionFactory sf;
 
     public AccidentHibernate(SessionFactory sf) {
