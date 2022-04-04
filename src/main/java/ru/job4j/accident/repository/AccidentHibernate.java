@@ -41,7 +41,7 @@ public class AccidentHibernate {
         }
     }
 
-@Transactional
+    @Transactional
     public List<AccidentType> getTypes() {
         try (Session session = sf.openSession()) {
           return   session.createQuery("from AccidentType", AccidentType.class)
@@ -57,7 +57,7 @@ public class AccidentHibernate {
         }
     }
 
-@Transactional
+    @Transactional
     public Rule getRule(int id) {
         try (Session session = sf.openSession()) {
             return session.get(Rule.class, id);
@@ -65,7 +65,7 @@ public class AccidentHibernate {
 
     }
 
-@Transactional
+    @Transactional
     public List<Rule> getRules() {
        try (Session session = sf.openSession()) {
            return session.createQuery("from Rule", Rule.class).list();

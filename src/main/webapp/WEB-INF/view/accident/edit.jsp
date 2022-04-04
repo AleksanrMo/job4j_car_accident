@@ -14,7 +14,7 @@
 </head>
 
 <body>
-<form action="<c:url value='/update'/>" method='POST'>
+<form action="<c:url value='/save'/>" method='POST'>
     <table>
         <tr>
             <td>Имя:</td>
