@@ -5,12 +5,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.job4j.accident.model.Accident;
-import ru.job4j.accident.model.AccidentType;
 import ru.job4j.accident.model.Rule;
-import ru.job4j.accident.repository.AccidentJdbcTemplate;
+import ru.job4j.accident.repository.AccidentHibernate;
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 
@@ -18,10 +16,11 @@ import java.util.Set;
 public class AccidentControl {
 
     @Autowired
-    private final AccidentJdbcTemplate template;
+    private final AccidentHibernate template;
+
     private int id;
 
-    public AccidentControl(AccidentJdbcTemplate template) {
+    public AccidentControl(AccidentHibernate template) {
 
         this.template = template;
     }
@@ -35,12 +34,12 @@ public class AccidentControl {
 
     @PostMapping ("/save")
     public String save(@ModelAttribute Accident accident,
-                       @RequestParam("type.id") int typeId, @RequestParam("rIds") int[] ruls) {
+                       @RequestParam("type.id") int typeId,  @RequestParam("rIds") int[] ruls) {
         accident.setAccidentType(template.getType(typeId));
+        Set<Rule> rules = new HashSet<>();
+        Arrays.stream(ruls).forEach(e -> rules.add(template.getRule(e)));
+        accident.setRules(rules);
         template.save(accident);
-        List<Accident> accidentList = template.getAll();
-        Accident accident1 = accidentList.get(accidentList.size() - 1);
-        Arrays.stream(ruls).forEach(e -> template.addIntoAccidentsRules(e, accident1.getId()));
         return "redirect:/";
     }
 
@@ -53,15 +52,17 @@ public class AccidentControl {
         return "accident/edit";
     }
 
-    @SuppressWarnings("checkstyle:ArrayTypeStyle")
     @PostMapping ("/update")
     public String update2(Accident accident, @RequestParam("type.id") int idType,
                           @RequestParam("rIds") int[] ids) {
+        Set<Rule> set = new HashSet<>();
+        Arrays.stream(ids).forEach(e -> set.add(template.getRule(e)));
+        accident.setRules(set);
         accident.setAccidentType(template.getType(idType));
-        template.update(id, accident);
-        Arrays.stream(ids).forEach(e -> template.addIntoAccidentsRules(e, id));
-
+        accident.setId(id);
+        template.save(accident);
         return "redirect:/";
     }
+
 
 }

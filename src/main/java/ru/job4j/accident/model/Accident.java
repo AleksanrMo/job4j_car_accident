@@ -1,17 +1,31 @@
 package ru.job4j.accident.model;
 
+import javax.persistence.*;
 import java.util.*;
 
+@Entity
+@Table(name = "accident")
 public class Accident {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
     private String text;
     private String address;
+    @ManyToOne
+    @JoinColumn(name = "accident_tipe_id")
     private AccidentType accidentType;
+    @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+    @JoinTable(name = "accidents_rules", joinColumns =
+    @JoinColumn(name = "accidents_id", nullable = false, updatable = false),
+            inverseJoinColumns = @JoinColumn(name = "rules_id", nullable = false, updatable = false))
     private Set<Rule> rules = new HashSet<>();
+
 
     public Accident() {
     }
+
 
     public Accident(int id, String name, String text, String address, AccidentType accidentType) {
         this.id = id;
@@ -27,6 +41,10 @@ public class Accident {
 
     public void setAccidentType(AccidentType accidentType) {
         this.accidentType = accidentType;
+    }
+
+    public void add(Rule rule) {
+        this.rules.add(rule);
     }
 
     public Set<Rule> getRules() {
@@ -88,13 +106,20 @@ public class Accident {
 
     @Override
     public String toString() {
-        return "Accident{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", text='" + text + '\'' +
-                ", address='" + address + '\'' +
-                ", accidentType=" + accidentType +
-                ", rules=" + rules +
+        return "Accident{"
+                +
+                "id=" + id
+                +
+                ", name='" + name + '\''
+                +
+                ", text='" + text + '\''
+                +
+                ", address='" + address + '\''
+                +
+                ", accidentType=" + accidentType
+                +
+                ", rules=" + rules
+                +
                 '}';
     }
 }
