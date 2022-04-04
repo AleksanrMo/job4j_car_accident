@@ -52,18 +52,4 @@ public class AccidentControl {
         model.addAttribute("rules", template.getRules());
         return "accident/edit";
     }
-//
-//    @PostMapping ("/update")
-//    public String update2(Accident accident, @RequestParam("type.id") int idType,
-//                          @RequestParam("rIds") int[] ids) {
-//        Set<Rule> set = new HashSet<>();
-//        Arrays.stream(ids).forEach(e -> set.add(template.getRule(e)));
-//        accident.setRules(set);
-//        accident.setAccidentType(template.getType(idType));
-//        accident.setId(id);
-//        template.save(accident);
-//        return "redirect:/";
-//    }
-
-
 }
