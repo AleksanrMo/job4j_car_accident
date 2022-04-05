@@ -34,6 +34,7 @@ public class AccidentServiceImpl implements AccidentService {
     }
 
     @Override
+
     public Accident save(Accident accident) {
         return repository.save(accident);
     }
@@ -45,7 +46,9 @@ public class AccidentServiceImpl implements AccidentService {
 
     @Override
     public List<AccidentType> getTypes() {
-        return accidentTypeRepository.findAll();
+        List<AccidentType> list = accidentTypeRepository.findAll();
+        list.get(0);
+        return list;
     }
 
     @Override
@@ -61,7 +64,9 @@ public class AccidentServiceImpl implements AccidentService {
 
     @Override
     public List<Rule> getRules() {
-        return ruleRepository.findAll();
+        List<Rule> list = ruleRepository.findAll();
+        list.get(0);
+        return list;
     }
 
     @Override

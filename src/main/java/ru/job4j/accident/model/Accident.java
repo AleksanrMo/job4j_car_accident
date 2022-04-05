@@ -16,7 +16,7 @@ public class Accident {
     @ManyToOne
     @JoinColumn(name = "accident_tipe_id")
     private AccidentType accidentType;
-    @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     @JoinTable(name = "accidents_rules", joinColumns =
     @JoinColumn(name = "accidents_id", nullable = false, updatable = false),
             inverseJoinColumns = @JoinColumn(name = "rules_id", nullable = false, updatable = false))
@@ -103,22 +103,4 @@ public class Accident {
         return Objects.hash(id, name, text, address);
     }
 
-    @Override
-    public String toString() {
-        return "Accident{"
-                +
-                "id=" + id
-                +
-                ", name='" + name + '\''
-                +
-                ", text='" + text + '\''
-                +
-                ", address='" + address + '\''
-                +
-                ", accidentType=" + accidentType
-                +
-                ", rules=" + rules
-                +
-                '}';
-    }
 }

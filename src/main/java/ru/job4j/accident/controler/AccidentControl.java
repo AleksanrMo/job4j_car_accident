@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.*;
 import ru.job4j.accident.model.Accident;
 import ru.job4j.accident.model.Rule;
 import ru.job4j.accident.service.AccidentServiceImpl;
-
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -50,7 +49,7 @@ public class AccidentControl {
         this.id = id;
         model.addAttribute("accident", accidentService.findById(id));
         model.addAttribute("types", accidentService.getTypes());
-        model.addAttribute("rules", accidentService.getRules());
+        model.addAttribute("rules",  accidentService.getRules());
         return "accident/edit";
     }
 }
