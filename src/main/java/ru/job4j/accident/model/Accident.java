@@ -1,5 +1,8 @@
 package ru.job4j.accident.model;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
 import java.util.*;
 
@@ -16,6 +19,7 @@ public class Accident {
     @ManyToOne
     @JoinColumn(name = "accident_tipe_id")
     private AccidentType accidentType;
+    @Fetch(value = FetchMode.SELECT)
     @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     @JoinTable(name = "accidents_rules", joinColumns =
     @JoinColumn(name = "accidents_id", nullable = false, updatable = false),
