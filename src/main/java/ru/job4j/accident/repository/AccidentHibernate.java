@@ -2,19 +2,14 @@ package ru.job4j.accident.repository;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
-
-import org.springframework.transaction.annotation.Transactional;
+import org.hibernate.Transaction;
 import ru.job4j.accident.model.Accident;
 import ru.job4j.accident.model.AccidentType;
 import ru.job4j.accident.model.Rule;
-
 import java.util.List;
-
+import java.util.function.Function;
 
 public class AccidentHibernate {
-
 
     SessionFactory sf;
 
@@ -22,60 +17,64 @@ public class AccidentHibernate {
         this.sf = sf;
     }
 
-    @Transactional
-    public Accident save(Accident accident) {
-        try (Session session = sf.openSession()) {
-            session.beginTransaction();
-            session.saveOrUpdate(accident);
-            session.getTransaction().commit();
-            return accident;
-        }
+    public void save(Accident accident) {
+        tx(s -> {
+             if (accident.getId() == 0) {
+                 s.save(accident);
+             } else {
+                 s.update(accident);
+             }
+             return 1;
+         });
+
     }
 
-    @Transactional
     public List<Accident> getAll() {
-        try (Session session = sf.openSession()) {
-            return session
-                    .createQuery("from Accident", Accident.class)
-                    .list();
-        }
+      return tx(s -> s.createQuery("from Accident ").list());
     }
 
-    @Transactional
+
     public List<AccidentType> getTypes() {
-        try (Session session = sf.openSession()) {
-          return   session.createQuery("from AccidentType", AccidentType.class)
-                  .list();
-        }
+        return tx(s -> s.createQuery("from AccidentType").list());
     }
 
-    @Transactional
+
     public AccidentType getType(int id) {
-        try (Session session = sf.openSession()) {
-         return session.get(AccidentType.class, id);
-
-        }
+       return tx(s -> s.get(AccidentType.class, id));
     }
 
-    @Transactional
+
     public Rule getRule(int id) {
-        try (Session session = sf.openSession()) {
-            return session.get(Rule.class, id);
-        }
+       return tx(s -> s.get(Rule.class, id));
 
     }
 
-    @Transactional
+
     public List<Rule> getRules() {
-       try (Session session = sf.openSession()) {
-           return session.createQuery("from Rule", Rule.class).list();
-       }
+       return tx(s -> s.createQuery("from Rule").list());
     }
 
-    @Transactional
+
     public Accident findById(int id) {
-        try (Session session = sf.openSession()) {
-            return session.get(Accident.class, id);
+       return tx(s -> s.get(Accident.class, id));
+    }
+
+    public <T> T tx(Function<Session, T> function) {
+        Session session = sf.openSession();
+        Transaction  tx = session.beginTransaction();
+      T t = null;
+        try {
+          t =  function.apply(session);
+            tx.commit();
+            return t;
+        } catch (Exception e) {
+            if (tx != null) {
+                tx.rollback();
+                throw e;
+            }
+        } finally {
+            session.close();
         }
+        return t;
     }
 }
