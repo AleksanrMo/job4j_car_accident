@@ -65,6 +65,7 @@
             </div>
         </div>
         <a href="<c:url value='/create'/>">Добавить инцидент</a>
+        <a href="<c:url value='/logout'/>">Выйти</a>
     </div>
 </div>
 
