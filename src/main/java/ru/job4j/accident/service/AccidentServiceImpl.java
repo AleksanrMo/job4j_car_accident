@@ -41,7 +41,9 @@ public class AccidentServiceImpl implements AccidentService {
 
     @Override
     public List<Accident> getAll() {
-        return repository.findAll();
+       List<Accident> list = repository.findAll();
+       list.get(0);
+        return list;
     }
 
     @Override
