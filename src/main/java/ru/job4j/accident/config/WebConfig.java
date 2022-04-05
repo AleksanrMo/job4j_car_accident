@@ -1,14 +1,21 @@
 package ru.job4j.accident.config;
 
+import org.apache.commons.dbcp2.BasicDataSource;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.ViewResolver;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
+
 @Configuration
 @ComponentScan("ru.job4j.accident")
+@EnableWebMvc
+@EnableTransactionManagement
 public class WebConfig {
 
     @Bean
@@ -19,4 +26,6 @@ public class WebConfig {
         bean.setSuffix(".jsp");
         return bean;
     }
+
+
 }
