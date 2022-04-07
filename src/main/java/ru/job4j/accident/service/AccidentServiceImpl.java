@@ -41,16 +41,12 @@ public class AccidentServiceImpl implements AccidentService {
 
     @Override
     public List<Accident> getAll() {
-       List<Accident> list = repository.findAll();
-       list.get(0);
-        return list;
+        return repository.findAll();
     }
 
     @Override
     public List<AccidentType> getTypes() {
-        List<AccidentType> list = accidentTypeRepository.findAll();
-        list.get(0);
-        return list;
+        return accidentTypeRepository.findAll();
     }
 
     @Override
@@ -66,9 +62,7 @@ public class AccidentServiceImpl implements AccidentService {
 
     @Override
     public List<Rule> getRules() {
-        List<Rule> list = ruleRepository.findAll();
-        list.get(0);
-        return list;
+        return ruleRepository.findAll();
     }
 
     @Override
