@@ -1,7 +1,5 @@
 package ru.job4j.accident.config;
 
-import org.apache.commons.dbcp2.BasicDataSource;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -26,6 +24,5 @@ public class WebConfig {
         bean.setSuffix(".jsp");
         return bean;
     }
-
 
 }
