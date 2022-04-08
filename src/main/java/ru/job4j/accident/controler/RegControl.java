@@ -33,7 +33,7 @@ public class RegControl {
         return "redirect:/login";
     }
 
-    @GetMapping("/req")
+    @GetMapping("/reg")
     public String regPage() {
         return "reg";
     }
